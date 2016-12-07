@@ -1,0 +1,30 @@
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#/dashboard">Dashboard</a></li>
+				<li><a href="/" ng-click="logout()">Log Out</a></li>
+			</ul>
+		</div>
+
+	</nav>
+<h4> {{ topic._creator.name }} posted a topic: </h4>
+<em>{{topic.title}}</em>
+<p>{{topic.description}}</p>
+<form ng-submit="createPost(newPost)">
+	<div class="form-group">
+		<label for="post">Post your answer here</label>
+		<textarea class="form-control" id="post" ng-model = "newPost.text"></textarea>
+	</div>
+	<button type="btn btn-primary">Post</button>
+</form>
+<div ng-repeat="post in topic.posts track by $index">
+	<p>{{post._author.name}} said: {{post.text }}</p>
+	<p ng-repeat="comment in post.comments">  A COMMENT</p>
+	<form ng-submit="createComment($parent.newComment[$index], $index)">
+		<div class="form-group">
+			<label for="comment">Post your comment here </label>
+			<textarea class="form-control" id="comment" ng-model = "$parent.newComment[$index].text"></textarea>
+		</div>
+		<button class="btn btn-primary" type="submit">Comment</button>
+	</form>
+</div>
